@@ -50,11 +50,11 @@ jekyll-archives:
 
 # Category descriptions (for archive pages)
 descriptions:
-  - cat: jekyll
-    desc: "Posts describing Jekyll setup techniques."
+  - cat: 개인공부
+    desc: "개인적으로 공부한 내용을 정리해봤습니다."
 
-  - cat: dummy
-    desc: "Just some placeholder posts, lorem ipsum and the rest."
+  - cat: 자연어처리전문가양성과정
+    desc: "구름 자연어 처리 전문가 양성 과정 3기에서 있었던 프로젝트를 정리했습니다."
 
 # Social icons and sharing options
 #
