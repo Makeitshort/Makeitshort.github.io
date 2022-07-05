@@ -9,7 +9,7 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: 기자출신개발자의NLP일기
+title: 기자출신개발자의 NLP일기
 subtitle: "NLP journey of journalist"
 email: joony0830@gmail.com
 name: Junyup Lee
