@@ -11,12 +11,11 @@ main_nav: true
 
 ### Contact Me
 
-<aside>
+
 💡 [joony0830@gmail.com](mailto:joony0830@gmail.com)
 
-</aside>
 
-[Git_Portfolio](https://github.com/Makeitshort/Profile)
+👷 [Git_Portfolio](https://github.com/Makeitshort/Profile)
 
 <aside>
 📞 010-5567-0793
