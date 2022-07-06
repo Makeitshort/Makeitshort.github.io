@@ -49,12 +49,12 @@ jekyll-archives:
 # ga_tracking_id: "UA-XXXX-1"
 
 # Category descriptions (for archive pages)
-# descriptions:
-#   - cat: 개인공부
-#     desc: "개인적으로 공부한 내용을 정리해봤습니다."
+descriptions:
+  - cat: 개인공부
+    desc: "개인적으로 공부한 내용을 정리해봤습니다."
 
-#   - cat: 자연어처리전문가양성과정
-#     desc: "구름 자연어 처리 전문가 양성 과정 3기에서 있었던 프로젝트를 정리했습니다."
+  - cat: 자연어처리전문가양성과정
+    desc: "구름 자연어 처리 전문가 양성 과정 3기에서 있었던 프로젝트를 정리했습니다."
 
 # Social icons and sharing options
 #
@@ -79,6 +79,7 @@ social:
     desc: Fork me on GitHub
     share: false
 
+
 # Social sharing protocols
 # These are for automatically generating sharing metadata for FB and Twitter
 # OS Protocol is for sharing the source of your site, if you're interested. For more, see osprotocol.com
@@ -93,7 +94,3 @@ protocols:
     os_repo: "https://github.com/bencentra/centrarium.com"
     os_rcs_type: "git"
     os_src: "git@github.com:bencentra/centrarium.com.git"
-collections:
-  authors:
-    title: Authors
-    output: true
