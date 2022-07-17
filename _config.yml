@@ -43,6 +43,16 @@ jekyll-archives:
     tag: '/tag/:name/'
 
 destination: ./exampleoutputname
+
+production_url: https://Makeitshort.github.io/
+source_url: https://github.com/Makeitshort/first_blog.maker
+
+safe: False
+lsi: False
+
+username: Makeitshort
+repo: first_blog.maker
+branch: master
 # Disqus comments
 # disqus_shortname: bencentra
 
