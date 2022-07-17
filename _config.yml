@@ -42,7 +42,7 @@ jekyll-archives:
     category: '/category/:name/'
     tag: '/tag/:name/'
 
-destination: ./exampleoutputname
+destination: ./exampleoutname
 
 production_url: https://Makeitshort.github.io/
 source_url: https://github.com/Makeitshort/first_blog.maker
