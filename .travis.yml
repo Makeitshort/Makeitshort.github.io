@@ -11,11 +11,11 @@ deploy:
   skip_cleanup: true
   github_token: GITHUB_TOKEN
   keep_history: true
-  local-dir: ./_site
+  local-dir: C:\Users\joony\Makeitshort.github.io\first_blog.maker\exampleoutname
   target-branch: master
   on:
-    branch: sources
+    branch: main
 
 branches:
   only:
-  - sources
+  - main
