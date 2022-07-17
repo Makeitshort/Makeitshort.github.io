@@ -8,6 +8,7 @@ exclude: [vendor]
 
 deploy:
   provider: pages
+  edge: true
   skip_cleanup: true
   keep_history: true
   local-dir: C:\Users\joony\Makeitshort.github.io\first_blog.maker\exampleoutname
