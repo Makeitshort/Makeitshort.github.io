@@ -2,7 +2,7 @@
 
 # Compiled site
 .jekyll-cache/
-# _site
+_site
 
 # Sass garbage
 .sass-cache
