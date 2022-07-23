@@ -1,31 +1,12 @@
-# jekyll
-.jekyll-metadata
+.DS_Store
+
+# Compiled site
+.jekyll-cache/
 _site
+
+# Sass garbage
 .sass-cache
-.jekyll-cache
 
-
-# bundler
-*.gem
-Gemfile.lock
-
-
-# python
-*.whl
-
-
-# npm
-node_modules
-package-lock.json
-
-
-# _sass
-_sass/@primer/css/**/*.md
-
-
-# lighthouse
-*.report.html
-
-
-# action
-action.changelog.md
+# Bundler
+.bundle/
+vendor/
