@@ -1,68 +1,116 @@
-{% include calculate_relative_base.html %}
-{% include escape-404.html %}
+<!--
+  The Head
+-->
 
 <head>
-	<meta charset="utf-8">
-	<title>{% if page.title %}{{page.title}} - {{site.title}}{% else %}{{site.title}}{% endif %}</title>
-	<link rel="canonical" href="{{ site.url }}{{ page.url }}">
-	<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{% include SEO.html %}
-	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="#311e3e">
-	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="#311e3e">
-	<!-- Google Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com" />
-	<style>
-/* latin */
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/lora/v17/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin */
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 600;
-  src: url(https://fonts.gstatic.com/s/lora/v17/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 200;
-  src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3i94_wlxdu3cOWxw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwlxdu3cOWxw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-	</style>
-	<!-- <link href="https://fonts.googleapis.com/css?family=Lora:400,600|Source+Sans+Pro:200,400,700" rel="stylesheet"> -->
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="{{ relativebase }}assets/fonts/font-awesome/css/font-awesome.min.css">
-	<!-- Styles -->
-	<link rel="stylesheet" href="{{ relativebase }}assets/css/main.css">
-	{% include favicon.html %}
-	{% if page.layout == 'post' %}
-	<link rel="stylesheet" href="{{ relativebase }}assets/css/highlighter/{{ site.highlight_theme }}.css">
-	{% endif %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Allow having a localized datetime different from the appearance language -->
+  {% if site.prefer_datetime_locale %}
+    <meta name="prefer-datetime-locale" content="{{ site.prefer_datetime_locale }}">
+  {% endif %}
+
+  {% if page.layout == 'home' or page.layout == 'post' %}
+
+    {% if site.google_analytics.pv.proxy_endpoint %}
+      <meta name="pv-proxy-endpoint" content="{{ site.google_analytics.pv.proxy_endpoint }}">
+    {% endif %}
+
+    {% if site.google_analytics.pv.cache_path %}
+      <meta name="pv-cache-path" content="{{ site.google_analytics.pv.cache_path | relative_url }}">
+    {% endif %}
+
+  {% endif %}
+
+  {% capture seo_tags %}
+    {% seo title=false %}
+  {% endcapture %}
+
+  {% if site.img_cdn and seo_tags contains 'og:image' %}
+    {% assign properties = 'og:image,twitter:image' | split: ',' %}
+
+    {% for prop in properties %}
+      {% if site.img_cdn contains '//' %}
+        <!-- `site.img_cdn` is a cross-origin URL -->
+        {% capture target %}<meta property="{{ prop }}" content="{{ site.url }}{% endcapture %}
+        {% capture replacement %}<meta property="{{ prop }}" content="{{ site.img_cdn }}{% endcapture %}
+      {% else %}
+        <!-- `site.img_cdn` is a local file path -->
+        {% capture target %}<meta property="{{ prop }}" content="{{ site.url }}{{ site.baseurl }}{% endcapture %}
+        {% assign replacement = target | append: site.img_cdn %}
+      {% endif %}
+
+      {% assign seo_tags = seo_tags | replace: target, replacement %}
+
+    {% endfor %}
+  {% endif %}
+
+  {{ seo_tags }}
+
+  <title>
+  {%- unless page.layout == "home" -%}
+    {{ page.title | append: " | "}}
+  {%- endunless -%}
+    {{ site.title }}
+  </title>
+
+  {% include favicons.html %}
+
+  {% if site.resources.ignore_env != jekyll.environment and site.resources.self_hosted %}
+
+    <link href="{{ site.data.assets[origin].webfonts | relative_url }}" rel="stylesheet">
+
+  {% else %}
+
+    {% for cdn in site.data.assets[origin].cdns %}
+      <link rel="preconnect" href="{{ cdn.url }}" {{ cdn.args }}>
+      <link rel="dns-prefetch" href="{{ cdn.url }}" {{ cdn.args }}>
+    {% endfor %}
+
+    <link rel="stylesheet" href="{{ site.data.assets[origin].webfonts | relative_url }}">
+
+  {% endif %}
+
+  <!-- GA -->
+  {% if jekyll.environment == 'production'
+      and site.google_analytics.id != empty and site.google_analytics.id %}
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    {% if site.google_analytics.pv.proxy_endpoint %}
+      {% assign proxy_url = site.google_analytics.pv.proxy_endpoint
+          | replace: "https://", "" | split: "/" | first | prepend: "https://" %}
+      <link rel="preconnect" href="{{ proxy_url }}" crossorigin="use-credentials">
+      <link rel="dns-prefetch" href="{{ proxy_url }}">
+    {% endif %}
+  {% endif %}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{{ site.data.assets[origin].bootstrap.css | relative_url}}">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ site.data.assets[origin].fontawesome.css | relative_url }}">
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+  {% if site.toc and page.toc %}
+    <link rel="stylesheet" href="{{ site.data.assets[origin].bootstrap-toc.css | relative_url }}">
+  {% endif %}
+
+  {% if page.layout == 'page' or page.layout == 'post' %}
+    <!-- Manific Popup -->
+    <link rel="stylesheet" href="{{ site.data.assets[origin].magnific-popup.css | relative_url }}">
+  {% endif %}
+
+  <!-- JavaScript -->
+
+  <script src="{{ site.data.assets[origin].jquery.js | relative_url }}"></script>
+
+  {% unless site.theme_mode %}
+    {% include mode-toggle.html %}
+  {% endunless %}
 </head>
